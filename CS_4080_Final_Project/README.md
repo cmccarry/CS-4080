@@ -1,4 +1,4 @@
-# CS 4080 Project: Blog Website
+# CS 4080 Final Project: Blog Website
 
 This project is a simple blog website built using PHP and MySQL. Users can create accounts, log in, write blog posts, and comment on each other’s posts. The project demonstrates fundamental web development concepts, including user authentication, CRUD operations, and relational database handling in MySQL.
 
