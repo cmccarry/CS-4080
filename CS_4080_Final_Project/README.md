@@ -27,8 +27,8 @@ This project is a simple blog website built using PHP and MySQL. Users can creat
 2. Open **phpMyAdmin** by navigating to `http://localhost/phpmyadmin`.
 3. Import the database setup file:
    - Go to the **Import** tab.
-   - Select `cs_4080_project_db_setup.sql` from the `sql/` folder.
-   - Click **Go** to create the database and tables.
+   - Browse to and select the `cs_4080_project_db_setup.sql` file from the `sql/` folder.
+   - Click **Import** to create the database and tables.
 
 ### 2. Configure Database Connection (if needed)
 
