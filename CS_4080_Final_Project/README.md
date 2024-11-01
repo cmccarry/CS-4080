@@ -44,15 +44,15 @@ This project is a simple blog website built using PHP and MySQL. Users can creat
 
 ### 3. Place the Project in the XAMPP Directory
 
-1. Move the CS_4080_Project folder to the htdocs directory within your XAMPP installation.
+1. Move the CS_4080_Final_Project folder to the htdocs directory within your XAMPP installation.
 
-    Example path: `C:\\xampp\\htdocs\\CS_4080_Project`
+    Example path: `C:\\xampp\\htdocs\\CS_4080_Final_Project`
 
 ### 4. Run the Project
 
 1. Open a web browser and navigate to the homepage:
     
-    `http://localhost/CS_4080_Project/public/index.php`
+    `http://localhost/CS_4080_Final_Project/public/index.php`
 
 2. You can now:
 
