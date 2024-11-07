@@ -1,12 +1,12 @@
 <?php
-session_start(); // Starts the session to track user login state (Chapter 5: Scope)
+session_start(); // Starts the session to manage user login state
 require_once '../classes/User.php';
 
-$userObj = new User(); // Object for managing user-related functions (Chapter 11: Encapsulation)
+$userObj = new User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Check if form was submitted
     // Attempt to authenticate user
-    if ($userObj->authenticate($_POST['username'], $_POST['password'])) { // Encapsulated authentication method
+    if ($userObj->authenticate($_POST['username'], $_POST['password'])) { // Authentication method
         header("Location: index.php"); // Redirect to homepage on successful login
         exit;
     } else {

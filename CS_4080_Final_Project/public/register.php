@@ -4,7 +4,7 @@ require_once '../classes/User.php';
 $userObj = new User();
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Handles form submission
     if ($userObj->register($_POST['username'], $_POST['password'])) {
         echo "Account created successfully! <a href='login.php'>Log in</a>";
     } else {

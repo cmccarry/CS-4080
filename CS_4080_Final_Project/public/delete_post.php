@@ -20,6 +20,6 @@ if ($post && $post['author'] === $username) {
     header("Location: index.php"); // Redirect back to homepage
     exit;
 } else {
-    echo "Unauthorized access."; // Display unauthorized message
+    echo "Unauthorized access."; // Display if error
 }
 ?>

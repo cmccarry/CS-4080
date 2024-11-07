@@ -2,10 +2,10 @@
 require_once '../config/config.php';
 
 class User {
-    private $db; // Private database connection (Chapter 5: Scope)
+    private $db; // Private database connection
 
     public function __construct() {
-        $this->db = getDbConnection(); // DB connection (Chapter 9: Subprogram)
+        $this->db = getDbConnection(); // DB connection
     }
 
     public function register($username, $password) {
@@ -13,7 +13,10 @@ class User {
             return false;
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT); // Securely hash passwords
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        /* 5 --- password_hash()
+            Used to securely hash and salt the user's password before storing it in the database.
+        */
         $stmt = $this->db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $hashedPassword);
         return $stmt->execute();
@@ -27,12 +30,16 @@ class User {
         $stmt->fetch();
 
         if (password_verify($password, $hashedPassword)) { 
+            /* 5 --- password_verify()
+                Used to check if the provided password matches the stored hashed password during login.
+            */
             $_SESSION['username'] = $username; 
             return true;
         }
         return false;
     }
 
+    // Checks if a username already exists
     public function checkUsernameExists($username) {
         $stmt = $this->db->prepare("SELECT id FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -41,6 +48,7 @@ class User {
         return $stmt->num_rows > 0;
     }
 
+    // Verifies if the given current password matches the stored password for a user
     public function verifyPassword($username, $currentPassword) {
         $stmt = $this->db->prepare("SELECT password FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -50,6 +58,7 @@ class User {
         return password_verify($currentPassword, $hashedPassword);
     }
 
+    // Updates the password for a specific user
     public function updatePassword($username, $newPassword) {
         $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
         $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE username = ?");

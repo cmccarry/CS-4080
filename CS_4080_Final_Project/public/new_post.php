@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 
 $postObj = new Post();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Handles form submission
     $title = $_POST['title'];
     $content = $_POST['content'];
     $author = $_SESSION['username'];

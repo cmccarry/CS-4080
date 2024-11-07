@@ -1,9 +1,9 @@
 <?php
 session_start(); // Starts the session to manage user login state
-require_once '../classes/Post.php'; // Imports the Post class for managing blog posts and comments (Chapter 11: Encapsulation, using ADT to manage data access)
+require_once '../classes/Post.php'; // Imports the Post class for managing blog posts and comments
 
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) { // Chapter 8: Control Structure - conditional statement
+// Check if user is logged in
+if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
 }
@@ -11,11 +11,14 @@ if (!isset($_SESSION['username'])) { // Chapter 8: Control Structure - condition
 // Retrieve the post ID and comment content from the form submission
 $postId = $_POST['post_id'];
 $content = $_POST['content'];
-$author = $_SESSION['username']; // Uses session variable to identify the author (Chapter 5: Scope, persistent session data)
+/* 2 --- $_POST superglobal
+    Used to handle form submission data. Here it's being used to grab data from a submitted form to add a comment to a post.
+*/
+$author = $_SESSION['username'];
 
 // Instantiate Post object and add comment to database
-$postObj = new Post(); // Object-Oriented Programming (Chapter 12: OOP, encapsulation of Post operations)
-$postObj->addComment($postId, $author, $content); // Encapsulation of add comment functionality (Chapter 9: Subprogram for structured data access)
+$postObj = new Post();
+$postObj->addComment($postId, $author, $content);
 
 // Redirect back to the main page after the comment is added
 header("Location: index.php");

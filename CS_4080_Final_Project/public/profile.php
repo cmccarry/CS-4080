@@ -15,7 +15,7 @@ $userPosts = $postObj->getPostsByUser($username);
 $error = '';
 $success = '';
 
-// Handle username change
+// Handles username change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_username'])) {
     $newUsername = $_POST['new_username'];
     
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_username'])) {
     }
 }
 
-// Handle password change
+// Handles password change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['current_password'], $_POST['new_password'])) {
     $currentPassword = $_POST['current_password'];
     $newPassword = $_POST['new_password'];

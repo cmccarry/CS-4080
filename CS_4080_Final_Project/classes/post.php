@@ -1,26 +1,34 @@
 <?php
 require_once '../config/config.php';
 
-// Post class to manage posts and comments (Chapter 11: Encapsulation, Chapter 12: OOP)
+// Post class to manage posts and comments and user accounts
 class Post {
-    private $db; // Private database connection property (Chapter 5: Scope, Chapter 6: Data Types)
+    private $db; // Private database connection property
 
-    // Constructor: establishes database connection (Chapter 9: Subprograms, reusable DB access)
+    // Constructor: establishes database connection
     public function __construct() {
         $this->db = getDbConnection();
     }
 
-    /* ====== Post Management Functions ====== */
+    /* ---------- Post Management Functions ---------- */
+
+    /* 3 --- prepare(), bind_param(), execute() database functions with MySQLi
+        PHP has mysqli extension to interact with MySQL databases more securely.
+        Prepares a database query, securely binds the parameters, then executes the query
+    */
 
     // Retrieves all posts, with pagination (limit and offset for the current page)
     public function getAllPosts($limit, $offset) {
         $stmt = $this->db->prepare("SELECT * FROM posts ORDER BY created_at DESC LIMIT ? OFFSET ?");
-        $stmt->bind_param("ii", $limit, $offset); // Chapter 9: Parameter passing
+        $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        /* 4 --- Associative arrays
+            'MYSQLI_ASSOC' returns data as an associative array, which allows access to columns by name ($post['title'], $post['content'], etc.) rather than numeric indexes
+        */
     }
 
-    // Retrieves posts authored by a specific user, with pagination
+    // Retrieves posts authored by a specific user
     public function getPostsByAuthor($author, $limit, $offset) {
         $stmt = $this->db->prepare("SELECT * FROM posts WHERE author = ? ORDER BY created_at DESC LIMIT ? OFFSET ?");
         $stmt->bind_param("sii", $author, $limit, $offset);
@@ -65,7 +73,7 @@ class Post {
         return $stmt->execute();
     }
 
-    /* ====== Comment Management Functions ====== */
+    /* ---------- Comment Management Functions ---------- */
 
     // Retrieves comments for a specific post, ordered by creation time
     public function getCommentsByPostId($postId) {
@@ -82,7 +90,7 @@ class Post {
         return $stmt->execute();
     }
 
-    // Retrieves a specific comment by its unique ID
+    // Retrieves a comment by its unique ID
     public function getCommentById($commentId) {
         $stmt = $this->db->prepare("SELECT * FROM comments WHERE id = ?");
         $stmt->bind_param("i", $commentId);
@@ -97,7 +105,7 @@ class Post {
         return $stmt->execute();
     }
 
-    /* ====== User Account Management Functions ====== */
+    /* ---------- User Account Management Functions ---------- */
 
     // Retrieves user information by username
     public function getUserInfo($username) {
@@ -135,13 +143,13 @@ class Post {
 
     // Updates the password for a specific user
     public function updatePassword($username, $newPassword) {
-        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT); // Password hashing for security (Chapter 7: Expressions, Chapter 12: OOP - data protection)
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
         $stmt = $this->db->prepare("UPDATE users SET password = ? WHERE username = ?");
         $stmt->bind_param("ss", $hashedPassword, $username);
         return $stmt->execute();
     }
 
-    // Destructor: closes the database connection (Chapter 9: Subprograms for resource management)
+    // Destructor that closes the database connection
     public function __destruct() {
         $this->db->close();
     }

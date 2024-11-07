@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once '../classes/Post.php';
+session_start(); // Starts the session to manage user login state
+require_once '../classes/Post.php'; // Imports the Post class for managing blog posts and comments
 
 // Check if user is logged in
 if (!isset($_SESSION['username'])) {
@@ -13,7 +13,7 @@ $username = $_SESSION['username']; // Get the logged-in username
 
 $postObj = new Post(); // Instantiate Post object for accessing methods
 
-// Retrieve comment by ID to verify ownership
+// Get comment by ID to verify ownership
 $comment = $postObj->getCommentById($commentId);
 
 if ($comment && $comment['author'] === $username) { // Check if user is the comment's author
