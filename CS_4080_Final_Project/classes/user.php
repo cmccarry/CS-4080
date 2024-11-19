@@ -14,8 +14,9 @@ class User {
         }
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        /* 5 --- password_hash()
+        /* 3 --- password_hash()
             Used to securely hash and salt the user's password before storing it in the database.
+            ( Hash + Salt example: ("pass" + "qO76sMnu") = 77b177de23f81d37b5b4495046b227befa4546db63cfe6fe541fc4c3cd216eb9 )
         */
         $stmt = $this->db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $hashedPassword);
@@ -30,7 +31,7 @@ class User {
         $stmt->fetch();
 
         if (password_verify($password, $hashedPassword)) { 
-            /* 5 --- password_verify()
+            /* 3 --- password_verify()
                 Used to check if the provided password matches the stored hashed password during login.
             */
             $_SESSION['username'] = $username; 

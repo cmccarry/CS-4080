@@ -12,7 +12,7 @@ class Post {
 
     /* ---------- Post Management Functions ---------- */
 
-    /* 3 --- prepare(), bind_param(), execute() database functions with MySQLi
+    /* 4 --- prepare(), bind_param(), execute() database functions with MySQLi
         PHP has mysqli extension to interact with MySQL databases more securely.
         Prepares a database query, securely binds the parameters, then executes the query
     */
@@ -23,7 +23,7 @@ class Post {
         $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        /* 4 --- Associative arrays
+        /* 5 --- Associative arrays
             'MYSQLI_ASSOC' returns data as an associative array, which allows access to columns by name ($post['title'], $post['content'], etc.) rather than numeric indexes
         */
     }

@@ -5,12 +5,6 @@
     This allows it to interpret and execute them before sending the final HTML to the user’s browser.
 */
 
-/* What is this file?
-    The 'index.php' file serves as the homepage for the blog website.
-    It shows all the blog posts and also shows options like creating a new post and adding comments if the user is logged in.
-    This and other files have the HTML structure for that page's design and nav menu.
-*/
-
 session_start();
 /* 1 --- Why the 'session_start()'?
     PHP has built-in session handling that is straightforward, making it easy to implement user authentication.
@@ -52,6 +46,7 @@ if ($authorFilter) {
             <a href="index.php">Home</a>
             <?php if (isset($_SESSION['username'])): 
                 /* 2 --- $_SESSION superglobal
+                    Superglobal arrays are automatically populated and handle HTTP requests and session data.
                     Used for session variables. Here it's being used to store the logged-in user's data (username).
                 */
                 ?>
